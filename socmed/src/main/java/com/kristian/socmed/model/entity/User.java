@@ -2,9 +2,10 @@ package com.kristian.socmed.model.entity;
 
 import org.hibernate.annotations.Type;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "User")
 public class User {
@@ -40,11 +41,14 @@ public class User {
     private byte[] profilePicture;
 	
 	@OneToMany(mappedBy = "user")
+	@Singular
     private Set<Post> posts = new HashSet<>();
 	
 	@OneToMany(mappedBy = "user")
+	@Singular
     private Set<Like> likes = new HashSet<>();
 	
 	@OneToMany(mappedBy = "user")
+	@Singular
     private Set<Comment> comments = new HashSet<>();
 }

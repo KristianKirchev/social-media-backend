@@ -8,13 +8,14 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Singular;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "Post")
 public class Post {
@@ -34,8 +35,10 @@ public class Post {
     private User user;
 	
 	@OneToMany(mappedBy = "post")
+	@Singular
     private Set<Like> likes = new HashSet<>();
 	
 	@OneToMany(mappedBy = "post")
+	@Singular
     private Set<Comment> comments = new HashSet<>();
 }
