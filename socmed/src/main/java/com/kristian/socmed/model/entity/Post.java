@@ -1,12 +1,9 @@
 package com.kristian.socmed.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
@@ -26,7 +23,19 @@ public class Post {
     private long id;
 	
 	@Lob
+	@NotNull
     @Column(name = "photo")
     @Type(type = "org.hibernate.type.BinaryType")
     private byte[] photo;
+	
+	@NotNull
+	@ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+	
+	@OneToMany(mappedBy = "post")
+    private Set<Like> likes = new HashSet<>();
+	
+	@OneToMany(mappedBy = "post")
+    private Set<Comment> comments = new HashSet<>();
 }
