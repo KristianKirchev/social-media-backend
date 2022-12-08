@@ -1,5 +1,5 @@
-package com.kristian.socmed.repository;
+	package com.kristian.socmed.repository;
 
-public class LikeRepository {
+public interface LikeRepository {
 
 }
