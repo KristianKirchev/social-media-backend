@@ -8,14 +8,18 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+//import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
 
 @Getter
 @Setter
-@Builder
+//@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "Post")
 public class Post {
@@ -31,12 +35,12 @@ public class Post {
 	
 	@NotNull
 	@ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
     private User user;
 	
 	@OneToMany(mappedBy = "post")
 	@Singular
-    private Set<Like> likes = new HashSet<>();
+    private Set<Reaction> likes = new HashSet<>();
 	
 	@OneToMany(mappedBy = "post")
 	@Singular
