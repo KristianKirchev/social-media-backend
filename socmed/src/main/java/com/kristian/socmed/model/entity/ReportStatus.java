@@ -1,5 +1,5 @@
 package com.kristian.socmed.model.entity;
 
-public class ReportStatus {
-
+public enum ReportStatus {
+	UNSOLVED, APPROVED, DELETED;
 }

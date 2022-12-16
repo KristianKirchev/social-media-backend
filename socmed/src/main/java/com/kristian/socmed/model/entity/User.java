@@ -1,58 +1,42 @@
 package com.kristian.socmed.model.entity;
 
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-//import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
 
 @Data
-@Getter
-@Setter
-//@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "User")
-public class User {
+public class User implements MyEntity {
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long userId;
 	
 	@NotNull(message = "Enter username!")
 	@NotBlank(message = "Enter username!")
-    @Column(name = "username")
+    @Column(unique = true)
     private String username;
 	
 	@Email
 	@NotNull(message = "Enter email!")
 	@NotBlank(message = "Enter email!")
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 	
 	@NotNull(message = "Enter password!")
 	@NotBlank(message = "Enter password!")
-    @Column(name = "password")
     private String password;
 	
 	private String bio;
@@ -63,17 +47,43 @@ public class User {
     private byte[] profilePicture;
 	
 	private Instant dateOfCreation;
+	
     private boolean isEnabled;
 	
-	@OneToMany(mappedBy = "user")
-	@Singular
-    private Set<Post> posts = new HashSet<>();
-	
-	@OneToMany(mappedBy = "user")
-	@Singular
-    private Set<Reaction> likes = new HashSet<>();
-	
-	@OneToMany(mappedBy = "user")
-	@Singular
-    private Set<Comment> comments = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "following",
+            joinColumns = @JoinColumn(name = "following_user_id"),
+            inverseJoinColumns = @JoinColumn(name = "followed_user_id"))
+    private List<User> following;
+
+    @ManyToMany(mappedBy = "following",fetch = FetchType.LAZY)
+    private List<User> followers;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles"
+            ,joinColumns = {@JoinColumn(name = "userId")}
+            ,inverseJoinColumns = {@JoinColumn(name="roleId")})
+    private Set<Role> roles;
+    
+    public int getMutualFollowers(User currentUser) {
+        List<User> listOfMutualFoll = followers.stream()
+                .filter(two -> currentUser
+                		.getFollowers().
+                		stream().
+                		anyMatch(one -> one.getUsername()
+                				.equals(two.getUsername())))
+                .collect(Collectors.toList());
+        return listOfMutualFoll.size();
+    }
+
+    public void addRole(Role role){
+        if(roles==null){
+            roles = new LinkedHashSet<>();
+        }
+        roles.add(role);
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 }

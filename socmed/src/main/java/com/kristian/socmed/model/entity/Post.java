@@ -1,48 +1,46 @@
 package com.kristian.socmed.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.Instant;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Type;
-
 import lombok.AllArgsConstructor;
-//import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Singular;
 
-@Getter
-@Setter
-//@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Post")
-public class Post {
+public class Post implements MyEntity {
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
 	
-	@Lob
-	@NotNull
-    @Column(name = "photo")
-    @Type(type = "org.hibernate.type.BinaryType")
-    private byte[] photo;
+	@NotBlank(message = "Post must have title")
+    private String title;
+	
+//	@Lob
+//	@NotNull
+//    @Column(name = "photo")
+//    @Type(type = "org.hibernate.type.BinaryType")
+//    private byte[] photo;
+	
+	@Column(columnDefinition="text")
+    private String content;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 	
-	@OneToMany(mappedBy = "post")
-	@Singular
-    private Set<Reaction> likes = new HashSet<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topicId", referencedColumnName = "id")
+    private Topic topic;
 	
-	@OneToMany(mappedBy = "post")
-	@Singular
-    private Set<Comment> comments = new HashSet<>();
+	private Instant dateOfCreation;
+	
+    private Instant deletebByAdmin;
 }

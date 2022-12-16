@@ -1,39 +1,34 @@
 package com.kristian.socmed.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-//import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-@Getter
-@Setter
-//@Builder
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Reaction")
-public class Reaction {
+public class Reaction implements MyEntity {
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+	
+	private ReactionType reactionType;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "post_id"/*, referencedColumnName = "id"*/)
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
 }

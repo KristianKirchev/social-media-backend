@@ -1,53 +1,45 @@
 package com.kristian.socmed.model.entity;
 
-import java.sql.Date;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
-//import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-//@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Comment")
-public class Comment {
+public class Comment implements MyEntity {
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
 	
-	@NotNull
-	@Column(name = "content")
+	@NotEmpty
 	private String content;
 	
 	@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	@Column(name = "content_date")
-	private Date date;
+	private Instant date;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "user_id"/*, referencedColumnName = "id"*/)
-    private User user;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "postId", referencedColumnName = "id")
+	private Post post;
 	
 	@NotNull
-	@ManyToOne
-    @JoinColumn(name = "post_id"/*, referencedColumnName = "id"*/)
-    private Post post;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	private User user;
 }
