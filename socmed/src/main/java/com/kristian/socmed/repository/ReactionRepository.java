@@ -11,7 +11,7 @@ import com.kristian.socmed.model.entity.User;
 
 
 
-public interface LikeRepository extends JpaRepository<Reaction,Long>,MyRepository {
+public interface ReactionRepository extends JpaRepository<Reaction,Long>,MyRepository {
 
     @Override
     default void deleteByParent(MyEntity parent) {
