@@ -1,5 +1,5 @@
 package com.kristian.socmed.controller;
 
-public class LikeController {
+public class NotificationController {
 
 }
