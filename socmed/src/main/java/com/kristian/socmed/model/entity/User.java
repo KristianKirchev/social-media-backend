@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.hibernate.annotations.Type;
+//import org.hibernate.annotations.Type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,12 +41,12 @@ public class User implements MyEntity {
 	
 	private String bio;
 	
-	@Lob
-    @Column(name = "profile_picture")
-    @Type(type = "org.hibernate.type.BinaryType")
-    private byte[] profilePicture;
+//	@Lob
+//    @Column(name = "profile_picture")
+//    @Type(type = "org.hibernate.type.BinaryType")
+//    private byte[] profilePicture;
 	
-	private Instant dateOfCreation;
+	private Instant date;
 	
     private boolean isEnabled;
 	

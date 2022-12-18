@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class PostReport implements MyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

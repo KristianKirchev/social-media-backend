@@ -40,7 +40,7 @@ public class Post implements MyEntity {
     @JoinColumn(name = "topicId", referencedColumnName = "id")
     private Topic topic;
 	
-	private Instant dateOfCreation;
+	private Instant date;
 	
     private Instant deletebByAdmin;
 }

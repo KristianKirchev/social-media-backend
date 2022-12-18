@@ -47,7 +47,7 @@ public class AuthService {
         user.setEmail(registerRequest.getEmail());
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setDateOfCreation(Instant.now());
+        user.setDate(Instant.now());
         user.setEnabled(false);
         
         Role role = roleRepository.findByName("USER").orElseThrow(()->new MyRuntimeException(("Role not found")));
