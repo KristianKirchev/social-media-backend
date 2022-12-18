@@ -1,10 +1,13 @@
 package com.kristian.socmed.repository;
 
-public class RoleRepository {
+import java.util.Optional;
 
-	public Object findByName(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.kristian.socmed.model.entity.Role;
+
+public interface RoleRepository extends JpaRepository<Role,Long> {
+    Optional<Role> findByName(String name);
+
+    boolean existsByName(String user);
 }

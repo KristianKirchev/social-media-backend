@@ -1,5 +1,10 @@
 package com.kristian.socmed.exception;
 
-public class ErrorResponse {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+public class ErrorResponse {
+	private String message;
 }
