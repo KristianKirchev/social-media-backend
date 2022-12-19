@@ -7,7 +7,6 @@ import com.kristian.socmed.model.entity.Notification;
 import com.kristian.socmed.model.entity.NotificationType;
 import com.kristian.socmed.model.entity.Reaction;
 import com.kristian.socmed.model.entity.ReactionType;
-import com.kristian.socmed.service.AuthService;
 
 import lombok.AllArgsConstructor;
 
