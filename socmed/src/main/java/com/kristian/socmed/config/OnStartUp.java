@@ -12,17 +12,17 @@ import com.kristian.socmed.service.RoleService;
 import com.kristian.socmed.service.UserService;
 import com.kristian.socmed.service.dto.RegisterRequest;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OnStartUp {
 
-    private RoleService roleService;
-    private RoleRepository roleRepository;
-    private AuthService authService;
-    private UserService userService;
-    private UserRepository userRepository;
+    private final RoleService roleService;
+    private final RoleRepository roleRepository;
+    private final AuthService authService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {

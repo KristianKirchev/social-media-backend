@@ -17,5 +17,5 @@ public interface CommentRepository  extends MyRepository, JpaRepository<Comment,
     }
 
     public void deleteAllByPost(Post post);
-    List<Comment> findByPost_idOrderByCreatedDateDesc(Long postId);
+    List<Comment> findByPost_idOrderByDateDesc(Long postId);
 }

@@ -20,11 +20,11 @@ public interface NotificationRepository extends JpaRepository<Notification,Long>
 
 	    public void deleteAllByPost(Post post);
 
-	    Optional<Notification> findTopByTo_usernameOrderByIdDesc(String username);
+	    Optional<Notification> findTopByToUser_usernameOrderByIdDesc(String username);
 
-	    List<Notification> findByTo_usernameOrderByIdDesc(String username);
+	    List<Notification> findByToUser_usernameOrderByIdDesc(String username);
 
-	    Optional<Notification> findByFromAndToAndPostAndNotificationType(User fromUser, User toUser, Post post, NotificationType notificationType);
+	    Optional<Notification> findByFromUserAndToUserAndPostAndNotificationType(User fromUser, User toUser, Post post, NotificationType notificationType);
 
-	    Optional<Notification> findByFromAndToAndPost(User fromUser, User toUser, Post post);
+	    Optional<Notification> findByFromUserAndToUserAndPost(User fromUser, User toUser, Post post);
 }

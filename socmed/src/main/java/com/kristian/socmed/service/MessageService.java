@@ -45,7 +45,7 @@ public class MessageService {
     }
 
     public MessageDto getLastMesage(String from, String to) {
-        Optional<Message> optMessage = messageRepository.findTopByFrom_usernameAndTo_usernameOrderByIdDesc(from,to);
+        Optional<Message> optMessage = messageRepository.findTopByFromUser_usernameAndToUser_usernameOrderByIdDesc(from,to);
         Message message = optMessage.orElseThrow(() -> new MyRuntimeException("Message not found"));
         if(message.getSeenAt()==null){
             message.setSeenAt(Instant.now());
@@ -54,8 +54,8 @@ public class MessageService {
     }
 
     public List<MessageDto> getAllFromChat(String from, String to) {
-        List<Message> messages1 = messageRepository.findByTo_usernameAndFrom_username(from,to);
-        List<Message> messages2 = messageRepository.findByTo_usernameAndFrom_username(to,from);
+        List<Message> messages1 = messageRepository.findByToUser_usernameAndFromUser_username(from,to);
+        List<Message> messages2 = messageRepository.findByToUser_usernameAndFromUser_username(to,from);
         messages2.forEach(m->messages1.add(m));
 
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -72,7 +72,7 @@ public class MessageService {
     public List<InboxMessageDto> inboxMessages() {
         User user = authService.getCurrentUser();
         String username = user.getUsername();
-        List<Message> messagesOfCurrentUser = messageRepository.findByTo_usernameOrFrom_usernameOrderByIdDesc(username, username);
+        List<Message> messagesOfCurrentUser = messageRepository.findByToUser_usernameOrFromUser_usernameOrderByIdDesc(username, username);
         List<InboxMessageDto> inbox = messagesOfCurrentUser.stream().map(msg -> inboxMessageMapper.toDto(msg,user)).collect(Collectors.toList());
         return inbox.stream().filter(distinctByKey(InboxMessageDto::getWith)).collect(Collectors.toList());
     }
@@ -83,11 +83,11 @@ public class MessageService {
     }
 
     public Integer getNewMsgCount() {
-        return messageRepository.countByTo_usernameAndSeenAt(authService.getCurrentUser().getUsername(), null);
+        return messageRepository.countByToUser_usernameAndSeenAt(authService.getCurrentUser().getUsername(), null);
     }
 
     public void readMessagesFrom(String username) {
-        List<Message> messages = messageRepository.findByFrom_usernameAndSeenAt(username,null);
+        List<Message> messages = messageRepository.findByFromUser_usernameAndSeenAt(username,null);
         messages.stream().forEach(m->m.setSeenAt(Instant.now()));
         messageRepository.saveAll(messages);
     }

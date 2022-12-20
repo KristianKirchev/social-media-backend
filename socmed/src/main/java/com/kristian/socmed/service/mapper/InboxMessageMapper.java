@@ -43,7 +43,7 @@ public class InboxMessageMapper implements GenericMapper<InboxMessageDto, Messag
         InboxMessageDto dto = toDto(entity);
         String with = setWith(entity, currentUser);
         dto.setWith(with);
-        dto.setNewMessages(messageRepository.countByTo_usernameAndFrom_usernameAndSeenAt(authService.getCurrentUser().getUsername(),with,null));
+        dto.setNewMessages(messageRepository.countByToUser_usernameAndFromUser_usernameAndSeenAt(authService.getCurrentUser().getUsername(),with,null));
         return dto;
     }
 

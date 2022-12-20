@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kristian.socmed.config.AppConfiguration;
+import com.kristian.socmed.config.AppConfigurationProperties;
 import com.kristian.socmed.exception.MyRuntimeException;
 import com.kristian.socmed.model.entity.Role;
 import com.kristian.socmed.model.entity.User;
@@ -37,7 +37,7 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
     private JwtProvider jwtProvider;
     private VerificationTokenRepository verificationTokenRepository;
-    private AppConfiguration appConfig;
+    private AppConfigurationProperties appConfigurationProperties;
     private RoleRepository roleRepository;
     private MailService mailService;
     
@@ -59,7 +59,7 @@ public class AuthService {
         mailService.sendMail(new VerificationEmail("Please Activate your Account",
                 user.getEmail(), "Thank you for signing up to Spring Social Network, " +
                 "please click on the below url to activate your account : " +
-                appConfig.getUrl()+"/api/auth/activate/" + token));
+                appConfigurationProperties.getUrl()+"/api/auth/activate/" + token));
     }
     
     private String generateVerificationToken(User user) {

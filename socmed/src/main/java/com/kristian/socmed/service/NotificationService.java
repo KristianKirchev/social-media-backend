@@ -28,7 +28,7 @@ public class NotificationService {
     @Transactional
     public void save(Notification notification) {
         if (!notification.getToUser().getUsername().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
-            Notification notification1 = notificationRepository.findByFromAndToAndPost(notification.getFromUser(), notification.getToUser(), notification.getPost()).orElse(notification);
+            Notification notification1 = notificationRepository.findByFromUserAndToUserAndPost(notification.getFromUser(), notification.getToUser(), notification.getPost()).orElse(notification);
             if (notification.equals(notification1)) {
                 notificationRepository.save(notification);
                 webSocketService.sendNotificationToUser(notification.getToUser().getUsername(), "notification");
@@ -49,12 +49,12 @@ public class NotificationService {
 
 
     public NotificationDto getLastNotificationForUser(String username) {
-        Notification notification = notificationRepository.findTopByTo_usernameOrderByIdDesc(username).orElseThrow(() -> new MyRuntimeException("Notification not found"));
+        Notification notification = notificationRepository.findTopByToUser_usernameOrderByIdDesc(username).orElseThrow(() -> new MyRuntimeException("Notification not found"));
         return notificationMapper.toDto(notification);
     }
 
     public List<NotificationDto> getAllNotificationsForUser() {
-        List<Notification> notifications = notificationRepository.findByTo_usernameOrderByIdDesc(authService.getCurrentUser().getUsername());
+        List<Notification> notifications = notificationRepository.findByToUser_usernameOrderByIdDesc(authService.getCurrentUser().getUsername());
         return notifications.stream()
                 .sorted(Comparator.comparing(Notification::getDate).reversed())
                 .map(n -> notificationMapper.toDto(n))

@@ -32,7 +32,7 @@ public class CommentService {
     }
     @Transactional
     public List<CommentDto> getAllCommentsForPost(Long postId) {
-        List<Comment> comments = commentRepository.findByPost_idOrderByCreatedDateDesc(postId);
+        List<Comment> comments = commentRepository.findByPost_idOrderByDateDesc(postId);
         return comments.stream().map((comment)->commentMapper.toDto(comment)).collect(Collectors.toList());
     }
     @Transactional
