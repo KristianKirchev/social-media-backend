@@ -18,7 +18,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class JwtProvider {
 	private JwtEncoder jwtEncoder;
-    private JwtDecoder jwtDecoder;
+    @SuppressWarnings("unused")
+	private JwtDecoder jwtDecoder;
     
     public String generateToken(Authentication authentication){
     	Instant now = Instant.now();

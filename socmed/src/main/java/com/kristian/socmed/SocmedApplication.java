@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @SpringBootApplication
 public class SocmedApplication implements CommandLineRunner {
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
