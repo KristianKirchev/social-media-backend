@@ -23,6 +23,7 @@ public class CommentService {
     private CommentMapper commentMapper;
     private NotificationService notificationService;
     private NotificationBuilder notificationBuilder;
+    
     @Transactional
     public void comment(CommentDto commentDto){
         Comment comment = commentMapper.toEntity(commentDto);
@@ -30,11 +31,13 @@ public class CommentService {
         Notification notification = notificationBuilder.createNotificationForComment(comment);
         notificationService.save(notification);
     }
+    
     @Transactional
     public List<CommentDto> getAllCommentsForPost(Long postId) {
         List<Comment> comments = commentRepository.findByPost_idOrderByDateDesc(postId);
         return comments.stream().map((comment)->commentMapper.toDto(comment)).collect(Collectors.toList());
     }
+    
     @Transactional
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);

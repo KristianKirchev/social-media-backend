@@ -9,5 +9,4 @@ class SocmedApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
