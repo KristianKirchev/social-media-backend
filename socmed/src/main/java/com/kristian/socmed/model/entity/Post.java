@@ -1,10 +1,16 @@
 package com.kristian.socmed.model.entity;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.context.ApplicationContext;
+
+import com.kristian.socmed.repository.MyRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,4 +49,18 @@ public class Post implements MyEntity {
 	private Instant date;
 	
     private Instant deletebByAdmin;
+    
+    @Override
+    public List<MyRepository> returnChildRepositories(ApplicationContext context) {
+        MyRepository commentRepository = (MyRepository) context.getBean("commentRepository");
+        MyRepository notificationRepository = (MyRepository) context.getBean("notificationRepository");
+        MyRepository reactionRepository = (MyRepository) context.getBean("reactionRepository");
+        MyRepository postReportRepository = (MyRepository) context.getBean("postReportRepository");
+        List<MyRepository> list = new ArrayList<MyRepository>();
+        list.add(commentRepository);
+        list.add(notificationRepository);
+        list.add(reactionRepository);
+        list.add(postReportRepository);
+        return list;
+    }	
 }
