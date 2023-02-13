@@ -57,7 +57,7 @@ public class AuthService {
         String token = generateVerificationToken(user);
         
         mailService.sendMail(new VerificationEmail("Please Activate your Account",
-                user.getEmail(), "Thank you for signing up to SocMed, " +
+                user.getEmail(), "Thank you for signing up to Smilenetix, " +
                 "please click on the below url to activate your account : " +
                 appConfigurationProperties.getUrl()+"/api/auth/activate/" + token));
     }

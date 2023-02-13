@@ -27,10 +27,10 @@ public class OnStartUp {
     @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {
         if (!roleRepository.existsByName("USER")) {
-            roleService.addRole(new Role(null, "USER", "Social media registered user"));
+            roleService.addRole(new Role(null, "USER", "Smilenetix registered user"));
         }
         if (!roleRepository.existsByName("ADMIN")) {
-            roleService.addRole(new Role(null, "ADMIN", "Social media administrator"));
+            roleService.addRole(new Role(null, "ADMIN", "Smilenetix administrator"));
         }
         if (!userRepository.existsByUsername("kris123")) {
             authService.signup(new RegisterRequest("kris.kirchev@gmail.com", "kris123", "kris123"));

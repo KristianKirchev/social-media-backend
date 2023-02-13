@@ -28,14 +28,9 @@ public class Post implements MyEntity {
 	@NotBlank(message = "Post must have title")
     private String title;
 	
-//	@Lob
-//	@NotNull
-//    @Column(name = "photo")
-//    @Type(type = "org.hibernate.type.BinaryType")
-//    private byte[] photo;
-	
-	@Column(columnDefinition="text")
-    private String content;
+	@Lob
+	@Column(columnDefinition = "LONGBLOB")
+	private String content;
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
