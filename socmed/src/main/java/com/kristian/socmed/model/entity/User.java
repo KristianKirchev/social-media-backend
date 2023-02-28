@@ -41,11 +41,6 @@ public class User implements MyEntity {
 	
 	private String bio;
 	
-//	@Lob
-//    @Column(name = "profile_picture")
-//    @Type(type = "org.hibernate.type.BinaryType")
-//    private byte[] profilePicture;
-	
 	private Instant date;
 	
     private boolean isEnabled;
@@ -73,6 +68,7 @@ public class User implements MyEntity {
                 		anyMatch(one -> one.getUsername()
                 				.equals(two.getUsername())))
                 .collect(Collectors.toList());
+        
         return listOfMutualFoll.size();
     }
 
@@ -80,6 +76,7 @@ public class User implements MyEntity {
         if(roles==null){
             roles = new LinkedHashSet<>();
         }
+        
         roles.add(role);
     }
 

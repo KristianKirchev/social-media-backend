@@ -11,7 +11,7 @@ import com.kristian.socmed.model.entity.NotificationType;
 import com.kristian.socmed.model.entity.Post;
 import com.kristian.socmed.model.entity.User;
 
-public interface NotificationRepository extends JpaRepository<Notification,Long>,MyRepository {
+public interface NotificationRepository extends MyRepository, JpaRepository<Notification, Long> {
 
 	    @Override
 	    default void deleteByParent(MyEntity parent) {

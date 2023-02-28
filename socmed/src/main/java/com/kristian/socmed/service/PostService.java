@@ -128,7 +128,7 @@ public class PostService {
     }
 
     public List<PostResponse> getAllPostsForTopic(String topicName) {
-        List<Post> posts = postRepository.findByTopic_name(topicName);
+        List<Post> posts = postRepository.findByTopic_nameAndDeletebByAdminIsNull(topicName);
         return posts.stream()
                 .map(p -> postResponseMapper.toDto(p))
                 .sorted((p1,p2)->likeDislikeDifference(p2)-likeDislikeDifference(p1))

@@ -11,7 +11,7 @@ import com.kristian.socmed.model.entity.PostReport;
 import com.kristian.socmed.model.entity.ReportStatus;
 import com.kristian.socmed.model.entity.User;
 
-public interface PostReportRepository extends JpaRepository<PostReport,Long>, MyRepository {
+public interface PostReportRepository extends MyRepository, JpaRepository<PostReport, Long> {
 	
 	@Override
     default void deleteByParent(MyEntity parent) {
@@ -19,11 +19,18 @@ public interface PostReportRepository extends JpaRepository<PostReport,Long>, My
     }
 
     public void deleteAllByPost(Post post);
+    
     Long countByPost(Post post);
+    
     Optional<PostReport> findFirstByPost(Post post);
+    
     List<PostReport> findAllByReportStatus(ReportStatus unsolved);
+    
     List<PostReport> findAllByReportStatusIn(List<ReportStatus> statuses);
+    
     List<PostReport> findByPost_id(Long postId);
+    
     List<PostReport> findByReportStatus(ReportStatus status);
+    
     List<PostReport> findByPost_userAndReportStatus(User user, ReportStatus status);
 }

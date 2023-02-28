@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class JwtProvider {
 	private JwtEncoder jwtEncoder;
+	
     @SuppressWarnings("unused")
 	private JwtDecoder jwtDecoder;
     

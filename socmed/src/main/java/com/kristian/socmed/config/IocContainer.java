@@ -26,7 +26,6 @@ import com.kristian.socmed.websockettest.UserHandshakeHandler;
 
 @Configuration
 public class IocContainer {
-
     @Bean
     NotificationBuilder notificationBuilder(AuthService authService){
         return new NotificationBuilder();

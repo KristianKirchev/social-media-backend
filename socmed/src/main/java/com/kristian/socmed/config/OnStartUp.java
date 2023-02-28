@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class OnStartUp {
-
     private final RoleService roleService;
     private final RoleRepository roleRepository;
     private final AuthService authService;
@@ -29,9 +28,11 @@ public class OnStartUp {
         if (!roleRepository.existsByName("USER")) {
             roleService.addRole(new Role(null, "USER", "Smilenetix registered user"));
         }
+        
         if (!roleRepository.existsByName("ADMIN")) {
             roleService.addRole(new Role(null, "ADMIN", "Smilenetix administrator"));
         }
+        
         if (!userRepository.existsByUsername("kris123")) {
             authService.signup(new RegisterRequest("kris.kirchev@gmail.com", "kris123", "kris123"));
             userService.enableUser("kris123");

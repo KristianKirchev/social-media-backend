@@ -56,6 +56,7 @@ public class Post implements MyEntity {
         list.add(notificationRepository);
         list.add(reactionRepository);
         list.add(postReportRepository);
+        
         return list;
     }	
 }

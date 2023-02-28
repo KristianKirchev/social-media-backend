@@ -13,7 +13,7 @@ import com.kristian.socmed.model.entity.User;
 
 
 
-public interface ReactionRepository extends JpaRepository<Reaction,Long>,MyRepository {
+public interface ReactionRepository extends MyRepository, JpaRepository<Reaction,Long> {
 
     @Override
     default void deleteByParent(MyEntity parent) {
@@ -21,6 +21,8 @@ public interface ReactionRepository extends JpaRepository<Reaction,Long>,MyRepos
     }
 
     public void deleteAllByPost(Post post);
+    
     List<Reaction> findByPostAndReactionType(Post post, ReactionType like);
+    
     Optional<Reaction> findByPost_idAndUser(Long postId, User currentUser);
 }

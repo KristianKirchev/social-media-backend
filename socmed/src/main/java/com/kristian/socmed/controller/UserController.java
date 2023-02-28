@@ -55,18 +55,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id){
         UserDto userDto = userService.getUser(id);
         return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
-
-   /* @GetMapping("/followers/{userId}")
-    public ResponseEntity<List<UserDto>> getAllFollowersForUser(@PathVariable Long userId){
-        return new ResponseEntity<>(userService.getAllFollowersForUser(userId),HttpStatus.OK);
-    }*/
 
     @GetMapping("/profile-info/{username}")
     public ResponseEntity<UserDto> getProfileInfo(@PathVariable String username){

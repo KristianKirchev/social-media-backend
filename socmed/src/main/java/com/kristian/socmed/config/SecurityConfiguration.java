@@ -36,7 +36,6 @@ public class SecurityConfiguration {
 	private UserDetailsService userDetailsService;
     private RsaKeyProperties rsaKeyProperties;
 
-
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and()
@@ -77,6 +76,7 @@ public class SecurityConfiguration {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        
         return http.build();
     }
 
@@ -90,6 +90,7 @@ public class SecurityConfiguration {
     JwtEncoder jwtEncoder() {
         JWK jwk  = new RSAKey.Builder(rsaKeyProperties.getPublicKey()).privateKey(rsaKeyProperties.getPrivateKey()).build();
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        
         return new NimbusJwtEncoder(jwks);
     }
 

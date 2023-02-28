@@ -8,7 +8,7 @@ import com.kristian.socmed.model.entity.Comment;
 import com.kristian.socmed.model.entity.MyEntity;
 import com.kristian.socmed.model.entity.Post;
 
-public interface CommentRepository  extends MyRepository, JpaRepository<Comment,Long> {
+public interface CommentRepository  extends MyRepository, JpaRepository<Comment, Long> {
     List<Comment> findAllByPost(Post post);
 
     @Override
