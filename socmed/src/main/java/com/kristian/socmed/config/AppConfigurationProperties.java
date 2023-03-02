@@ -1,8 +1,7 @@
 package com.kristian.socmed.config;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +13,9 @@ import lombok.Setter;
 @Component
 @ConfigurationProperties(prefix = "app")
 public class AppConfigurationProperties {
-	@NotNull
-    private String url;
+	@NotBlank
+	private String url;
 
-    @NotNull
-    @Value("${app.front.url}")
-    private String frontUrl;
+	@NotBlank
+	private String frontUrl;
 }
