@@ -6,5 +6,5 @@ import com.kristian.socmed.model.entity.MyEntity;
 
 @Repository
 public interface MyRepository {
-	public default void deleteByParent(MyEntity parent){}
+	default void deleteByParent(MyEntity parent){}
 }

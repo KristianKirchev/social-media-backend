@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kristian.socmed.service.AuthService;
+import com.kristian.socmed.service.AuthTransactionService;
 import com.kristian.socmed.service.dto.AuthResponse;
 import com.kristian.socmed.service.dto.LoginRequest;
 import com.kristian.socmed.service.dto.RegisterRequest;
@@ -32,11 +33,12 @@ import lombok.AllArgsConstructor;
 @SuppressWarnings("rawtypes")
 public class AuthController {
 	private AuthService authService;
+	private AuthTransactionService authTransactionService;
 	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/activate/{token}")
     public ResponseEntity<String> activateAccount(@PathVariable String token){
-        authService.activateAccount(token);
+		authTransactionService.activateAccount(token);
         return new ResponseEntity("Acount succesfuly activated, you can close this page now",HttpStatus.OK);
     }
 

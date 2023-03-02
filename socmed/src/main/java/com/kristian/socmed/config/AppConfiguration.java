@@ -1,15 +1,20 @@
 package com.kristian.socmed.config;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.kristian.socmed.repository.CommentRepository;
+import com.kristian.socmed.repository.MyRepository;
 import com.kristian.socmed.repository.PostReportRepository;
 import com.kristian.socmed.repository.PostRepository;
 import com.kristian.socmed.repository.ReactionRepository;
 import com.kristian.socmed.repository.TopicRepository;
 import com.kristian.socmed.repository.UserRepository;
 import com.kristian.socmed.service.AuthService;
+import com.kristian.socmed.service.MyRepositoryRegistry;
 import com.kristian.socmed.service.mapper.CommentMapper;
 import com.kristian.socmed.service.mapper.MessageMapper;
 import com.kristian.socmed.service.mapper.NotificationBuilder;
@@ -24,8 +29,9 @@ import com.kristian.socmed.service.mapper.TopicMapper;
 import com.kristian.socmed.service.mapper.UserMapper;
 import com.kristian.socmed.websockettest.UserHandshakeHandler;
 
+
 @Configuration
-public class IocContainer {
+public class AppConfiguration {
     @Bean
     NotificationBuilder notificationBuilder(AuthService authService){
         return new NotificationBuilder();
@@ -52,7 +58,7 @@ public class IocContainer {
     }
 
     @Bean
-    PostRequestMapper PostRequestMapper(TopicRepository topicRepository){
+    PostRequestMapper postRequestMapper(TopicRepository topicRepository){
         return new PostRequestMapper(topicRepository);
     }
 
@@ -89,5 +95,10 @@ public class IocContainer {
     @Bean
     UserHandshakeHandler userHandshakeHandler(){
         return new UserHandshakeHandler();
+    }
+    
+    @Bean
+    MyRepositoryRegistry myRepositoryRegistry(List<MyRepository> myRepositories) {
+    	return new MyRepositoryRegistry(Collections.unmodifiableList(myRepositories));
     }
 }

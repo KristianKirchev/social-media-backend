@@ -14,15 +14,15 @@ import com.kristian.socmed.service.dto.CommentDto;
 import com.kristian.socmed.service.mapper.CommentMapper;
 import com.kristian.socmed.service.mapper.NotificationBuilder;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CommentService {
-	private CommentRepository commentRepository;
-    private CommentMapper commentMapper;
-    private NotificationService notificationService;
-    private NotificationBuilder notificationBuilder;
+	private final CommentRepository commentRepository;
+    private final CommentMapper commentMapper;
+    private final NotificationService notificationService;
+    private final NotificationBuilder notificationBuilder;
     
     @Transactional
     public void comment(CommentDto commentDto){

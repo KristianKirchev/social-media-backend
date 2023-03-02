@@ -14,12 +14,13 @@ import com.kristian.socmed.service.dto.UserDto;
 import com.kristian.socmed.service.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FollowingService {
-	private FollowRepository followRepository;
-    private UserMapper userMapper;
+	private final FollowRepository followRepository;
+    private final UserMapper userMapper;
 
     @Transactional
     public List<UserDto> getFollowersForUser(Long userId) {

@@ -11,12 +11,12 @@ import lombok.AllArgsConstructor;
 @EnableWebMvc
 @AllArgsConstructor
 public class WebConfiguration implements WebMvcConfigurer {
-	private AppConfigurationProperties appConfigurationProperties;
+	private AppProperties appProperties;
 	
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns(appConfigurationProperties.getFrontUrl())
+                .allowedOriginPatterns(appProperties.getFrontUrl())
                 .allowedMethods("*")
                 .maxAge(3600L)
                 .allowedHeaders("*")

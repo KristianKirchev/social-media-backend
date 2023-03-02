@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties(prefix = "app")
-public class AppConfigurationProperties {
+public class AppProperties {
 	@NotBlank
 	private String url;
 
