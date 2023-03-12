@@ -19,33 +19,34 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReportedPostMapper implements GenericMapper<ReportedPostDto, Post> {
 
-    private PostReportRepository reportRepository;
-    @Override
-    public Post toEntity(ReportedPostDto dto) {
-        return null;
-    }
+  private PostReportRepository reportRepository;
 
-    @Override
-    public ReportedPostDto toDto(Post entity) {
-       ReportedPostDto dto = new ReportedPostDto();
-       dto.setId(entity.getId());
-       dto.setContent(entity.getContent());
-       dto.setTitle(entity.getTitle());
-       PrettyTime p = new PrettyTime();
-       dto.setDuraton(p.format(entity.getDate()));
-       dto.setTopicname(entity.getTopic().getName());
-       dto.setUsername(entity.getUser().getUsername());
-       dto.setReportCount(getReportCount(entity));
-       dto.setReportStatus(setReportStatus(entity));
-        return dto;
-    }
+  @Override
+  public Post toEntity(ReportedPostDto dto) {
+    return null;
+  }
 
-    private ReportStatus setReportStatus(Post post) {
-        Optional<PostReport> report = reportRepository.findFirstByPost(post);
-        return report.get().getReportStatus();
-    }
+  @Override
+  public ReportedPostDto toDto(Post entity) {
+    ReportedPostDto dto = new ReportedPostDto();
+    dto.setId(entity.getId());
+    dto.setContent(entity.getContent());
+    dto.setTitle(entity.getTitle());
+    PrettyTime p = new PrettyTime();
+    dto.setDuraton(p.format(entity.getDate()));
+    dto.setTopicname(entity.getTopic().getName());
+    dto.setUsername(entity.getUser().getUsername());
+    dto.setReportCount(getReportCount(entity));
+    dto.setReportStatus(setReportStatus(entity));
+    return dto;
+  }
 
-    private int getReportCount(Post post) {
-        return reportRepository.countByPost(post).intValue();
-    }
+  private ReportStatus setReportStatus(Post post) {
+    Optional<PostReport> report = reportRepository.findFirstByPost(post);
+    return report.get().getReportStatus();
+  }
+
+  private int getReportCount(Post post) {
+    return reportRepository.countByPost(post).intValue();
+  }
 }

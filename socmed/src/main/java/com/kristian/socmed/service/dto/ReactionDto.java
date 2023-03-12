@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReactionDto implements Dto{
-    private Long postId;
-    private ReactionType reactionType;
+public class ReactionDto implements Dto {
+  private Long postId;
+  private ReactionType reactionType;
 }

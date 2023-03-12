@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostReportRequest implements Dto{
-    private Long postId;
-    private String username;
+public class PostReportRequest implements Dto {
+  private Long postId;
+  private String username;
 }

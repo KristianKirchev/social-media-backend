@@ -1,9 +1,7 @@
 package com.kristian.socmed.service.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,16 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    @Email(message = "Bad email format")
-    @NotEmpty(message = "Email is required")
-    @NotNull(message = "Email is required")
-    private String email;
-    
-    @NotNull(message = "Username is required")
-    @NotEmpty(message = "Username is required")
-    private String username;
-    
-    @NotNull(message = "Password is required")
-    @NotEmpty(message = "Password is required")
-    private String password;
+  @Email(message = "Bad email format")
+  @NotBlank(message = "Email is required")
+  private String email;
+
+  @NotBlank(message = "Username is required")
+  private String username;
+
+  @NotBlank(message = "Password is required")
+  private String password;
 }

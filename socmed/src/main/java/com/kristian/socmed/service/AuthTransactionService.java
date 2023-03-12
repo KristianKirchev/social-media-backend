@@ -1,13 +1,11 @@
 package com.kristian.socmed.service;
 
 import java.util.Optional;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.kristian.socmed.exception.MyRuntimeException;
 import com.kristian.socmed.model.entity.Role;
 import com.kristian.socmed.model.entity.User;
@@ -15,7 +13,6 @@ import com.kristian.socmed.model.entity.VerificationToken;
 import com.kristian.socmed.repository.RoleRepository;
 import com.kristian.socmed.repository.UserRepository;
 import com.kristian.socmed.repository.VerificationTokenRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -49,7 +46,7 @@ public class AuthTransactionService {
 	}
 	
 	public void activateAccount(String token) {
-		VerificationToken verificationToken = verificationTokenRepository.findByToken(token)
+    VerificationToken verificationToken = verificationTokenRepository.findByToken(token)
 				.orElseThrow(() -> new MyRuntimeException("Token not found"));
 		User user = verificationToken.getUser();
 		user.setEnabled(true);

@@ -12,33 +12,33 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class NotificationBuilder {
-    public Notification createNotificationForReaction(Reaction react){
-        Notification not = new Notification();
-        not.setFromUser(react.getUser());
-        not.setToUser(react.getPost().getUser());
-        not.setDate(Instant.now());
-        not.setPost(react.getPost());
-        not.setRead(false);
-        not.setNotificationType(setNotificationType(react.getReactionType()));
-        return not;
-    }
+  public Notification createNotificationForReaction(Reaction react) {
+    Notification not = new Notification();
+    not.setFromUser(react.getUser());
+    not.setToUser(react.getPost().getUser());
+    not.setDate(Instant.now());
+    not.setPost(react.getPost());
+    not.setRead(false);
+    not.setNotificationType(setNotificationType(react.getReactionType()));
+    return not;
+  }
 
-    public Notification createNotificationForComment(Comment comment){
-        Notification not = new Notification();
-        not.setFromUser(comment.getUser());
-        not.setToUser(comment.getPost().getUser());
-        not.setDate(Instant.now());
-        not.setPost(comment.getPost());
-        not.setRead(false);
-        not.setNotificationType(NotificationType.COMMENT);
-        return not;
-    }
+  public Notification createNotificationForComment(Comment comment) {
+    Notification not = new Notification();
+    not.setFromUser(comment.getUser());
+    not.setToUser(comment.getPost().getUser());
+    not.setDate(Instant.now());
+    not.setPost(comment.getPost());
+    not.setRead(false);
+    not.setNotificationType(NotificationType.COMMENT);
+    return not;
+  }
 
-    private NotificationType setNotificationType(ReactionType reactionType) {
-        if(reactionType==ReactionType.LIKE){
-            return NotificationType.LIKE;
-        }else{
-            return NotificationType.DISLIKE;
-        }
+  private NotificationType setNotificationType(ReactionType reactionType) {
+    if (reactionType == ReactionType.LIKE) {
+      return NotificationType.LIKE;
+    } else {
+      return NotificationType.DISLIKE;
     }
+  }
 }

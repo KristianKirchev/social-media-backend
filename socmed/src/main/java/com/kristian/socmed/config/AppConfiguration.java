@@ -2,10 +2,8 @@ package com.kristian.socmed.config;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import com.kristian.socmed.repository.CommentRepository;
 import com.kristian.socmed.repository.MyRepository;
 import com.kristian.socmed.repository.PostReportRepository;
@@ -29,76 +27,76 @@ import com.kristian.socmed.service.mapper.TopicMapper;
 import com.kristian.socmed.service.mapper.UserMapper;
 import com.kristian.socmed.websockettest.UserHandshakeHandler;
 
-
 @Configuration
 public class AppConfiguration {
-    @Bean
-    NotificationBuilder notificationBuilder(AuthService authService){
-        return new NotificationBuilder();
-    }
+  @Bean
+  NotificationBuilder notificationBuilder(AuthService authService) {
+    return new NotificationBuilder();
+  }
 
-    @Bean
-    NotificationMapper notificationMapper(){
-        return new NotificationMapper();
-    }
-    
-    @Bean
-    UserMapper userMapper(AuthService authService){
-        return new UserMapper(authService);
-    }
+  @Bean
+  NotificationMapper notificationMapper() {
+    return new NotificationMapper();
+  }
 
-    @Bean
-    PostMapper postMapper(CommentRepository commentRepository, ReactionRepository reactionRepository, AuthService authService){
-        return new PostMapper(commentRepository,reactionRepository,authService);
-    }
+  @Bean
+  UserMapper userMapper(AuthService authService) {
+    return new UserMapper(authService);
+  }
 
-    @Bean
-    TopicMapper topicMapper(PostRepository postRepository, AuthService authService){
-        return new TopicMapper(postRepository,authService);
-    }
+  @Bean
+  PostMapper postMapper(CommentRepository commentRepository, ReactionRepository reactionRepository,
+      AuthService authService) {
+    return new PostMapper(commentRepository, reactionRepository, authService);
+  }
 
-    @Bean
-    PostRequestMapper postRequestMapper(TopicRepository topicRepository){
-        return new PostRequestMapper(topicRepository);
-    }
+  @Bean
+  TopicMapper topicMapper(PostRepository postRepository, AuthService authService) {
+    return new TopicMapper(postRepository, authService);
+  }
 
-    @Bean
-    CommentMapper commentMapper(PostRepository postRepository,AuthService authService){
-        return new CommentMapper(postRepository,authService);
-    }
+  @Bean
+  PostRequestMapper postRequestMapper(TopicRepository topicRepository) {
+    return new PostRequestMapper(topicRepository);
+  }
 
-    @Bean
-    ReactionMapper reactionMapper(PostRepository postRepository,AuthService authService){
-        return new ReactionMapper(postRepository,authService);
-    }
+  @Bean
+  CommentMapper commentMapper(PostRepository postRepository, AuthService authService) {
+    return new CommentMapper(postRepository, authService);
+  }
 
-    @Bean
-    PostReportRequestMapper postReportRequestMapper(PostRepository postRepository,AuthService authService){
-        return new PostReportRequestMapper(postRepository,authService);
-    }
+  @Bean
+  ReactionMapper reactionMapper(PostRepository postRepository, AuthService authService) {
+    return new ReactionMapper(postRepository, authService);
+  }
 
-    @Bean
-    ReportedPostMapper reportedPostMapper(PostReportRepository reportRepository){
-        return new ReportedPostMapper(reportRepository);
-    }
+  @Bean
+  PostReportRequestMapper postReportRequestMapper(PostRepository postRepository, AuthService authService) {
+    return new PostReportRequestMapper(postRepository, authService);
+  }
 
-    @Bean
-    ReportedUserMapper reportedUserMapper(PostReportRepository postReportRepository){
-        return new ReportedUserMapper(postReportRepository);
-    }
+  @Bean
+  ReportedPostMapper reportedPostMapper(PostReportRepository reportRepository) {
+    return new ReportedPostMapper(reportRepository);
+  }
 
-    @Bean
-    MessageMapper messageMapper(UserRepository userRepository){
-        return new MessageMapper(userRepository);
-    }
-    
-    @Bean
-    UserHandshakeHandler userHandshakeHandler(){
-        return new UserHandshakeHandler();
-    }
-    
-    @Bean
-    MyRepositoryRegistry myRepositoryRegistry(List<MyRepository> myRepositories) {
-    	return new MyRepositoryRegistry(Collections.unmodifiableList(myRepositories));
-    }
+  @Bean
+  ReportedUserMapper reportedUserMapper(PostReportRepository postReportRepository) {
+    return new ReportedUserMapper(postReportRepository);
+  }
+
+  @Bean
+  MessageMapper messageMapper(UserRepository userRepository) {
+    return new MessageMapper(userRepository);
+  }
+
+  @Bean
+  UserHandshakeHandler userHandshakeHandler() {
+    return new UserHandshakeHandler();
+  }
+
+  @Bean
+  MyRepositoryRegistry myRepositoryRegistry(List<MyRepository> myRepositories) {
+    return new MyRepositoryRegistry(Collections.unmodifiableList(myRepositories));
+  }
 }

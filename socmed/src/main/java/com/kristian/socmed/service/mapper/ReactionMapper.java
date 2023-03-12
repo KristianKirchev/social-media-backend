@@ -11,20 +11,21 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ReactionMapper implements GenericMapper<ReactionDto, Reaction> {
 
-    private PostRepository postRepository;
-    private AuthService authService;
+  private PostRepository postRepository;
+  private AuthService authService;
 
-    @Override
-    public Reaction toEntity(ReactionDto dto) {
-        Reaction reaction = new Reaction();
-        reaction.setPost(postRepository.findById(dto.getPostId()).orElseThrow(()->new MyRuntimeException("Post not found")));
-        reaction.setReactionType(dto.getReactionType());
-        reaction.setUser(authService.getCurrentUser());
-        return reaction;
-    }
+  @Override
+  public Reaction toEntity(ReactionDto dto) {
+    Reaction reaction = new Reaction();
+    reaction
+        .setPost(postRepository.findById(dto.getPostId()).orElseThrow(() -> new MyRuntimeException("Post not found")));
+    reaction.setReactionType(dto.getReactionType());
+    reaction.setUser(authService.getCurrentUser());
+    return reaction;
+  }
 
-    @Override
-    public ReactionDto toDto(Reaction entity) {
-        return null;
-    }
+  @Override
+  public ReactionDto toDto(Reaction entity) {
+    return null;
+  }
 }

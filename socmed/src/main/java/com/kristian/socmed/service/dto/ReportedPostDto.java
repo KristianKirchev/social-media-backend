@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportedPostDto implements Dto{
-    private Long id;
-    private String title;
-    private String content;
-    private String username;
-    private String topicname;
-    private String duraton;
-    private int reportCount;
-    private ReportStatus reportStatus;
+public class ReportedPostDto implements Dto {
+  private Long id;
+  private String title;
+  private String content;
+  private String username;
+  private String topicname;
+  private String duraton;
+  private int reportCount;
+  private ReportStatus reportStatus;
 }

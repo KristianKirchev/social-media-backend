@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InboxMessageDto implements Dto{
-    String with;
-    String content;
-    String time;
-    int newMessages;
+public class InboxMessageDto implements Dto {
+  private String with;
+  private String content;
+  private String time;
+  private int newMessages;
 }

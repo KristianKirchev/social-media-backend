@@ -1,8 +1,6 @@
 package com.kristian.socmed.service.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,16 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequest implements Dto{
-    @NotNull(message = "Title is required")
-    @NotEmpty(message = "Title is required")
-    String title;
-    
-    @NotNull(message = "Topic is required")
-    @NotEmpty(message = "Topic is required")
-    String topicName;
-    
-    @NotNull(message = "Content is required")
-    @NotEmpty(message = "Content is required")
-    String content;
+public class PostRequest implements Dto {
+  @NotBlank(message = "Title is required")
+  private String title;
+
+  @NotBlank(message = "Topic is required")
+  private String topicName;
+
+  @NotBlank(message = "Content is required")
+  private String content;
 }

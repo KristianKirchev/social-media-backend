@@ -5,7 +5,7 @@ import com.kristian.socmed.service.dto.Dto;
 
 public interface GenericMapper<D extends Dto, E extends MyEntity> {
 
-    E toEntity(D dto);
+  E toEntity(D dto);
 
-    D toDto(E entity);
+  D toDto(E entity);
 }

@@ -6,23 +6,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.kristian.socmed.service.ReactionService;
 import com.kristian.socmed.service.dto.ReactionDto;
-
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/react")
+@RequestMapping({"/api/react", "/api/react/"})
 @AllArgsConstructor
 @SuppressWarnings("rawtypes")
 public class ReactionController {
 
-    private ReactionService reactionService;
-    
-	@PostMapping
-    public ResponseEntity react(@RequestBody ReactionDto reactionDto){
-        reactionService.react(reactionDto);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
+  private ReactionService reactionService;
+
+  @PostMapping
+  public ResponseEntity react(@RequestBody ReactionDto reactionDto) {
+    reactionService.react(reactionDto);
+    return new ResponseEntity(HttpStatus.CREATED);
+  }
 }

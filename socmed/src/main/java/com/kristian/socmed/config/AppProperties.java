@@ -1,21 +1,21 @@
 package com.kristian.socmed.config;
 
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Component
 @ConfigurationProperties(prefix = "app")
 public class AppProperties {
-	@NotBlank
-	private String url;
+  @NotBlank
+  private String url;
 
-	@NotBlank
-	private String frontUrl;
+  @NotBlank
+  private String frontUrl;
 }

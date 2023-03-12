@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportedUserDto implements Dto {
-    private String username;
-    private int numberOfViolations;
-    private boolean isEnabled;
+  private String username;
+  private int numberOfViolations;
+  private boolean isEnabled;
 }

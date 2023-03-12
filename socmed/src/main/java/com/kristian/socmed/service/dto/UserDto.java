@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto implements Dto {
-	private Long userId;
-	private String username;
-	private String email;
-	private Instant date;
-	private int numOfFollowers;
-	private int numOfFollowing;
-	private boolean followedByCurrentUser;
-	private int mutualFollowers;
-	private String bio;
+  private Long userId;
+  private String username;
+  private String email;
+  private Instant date;
+  private int numOfFollowers;
+  private int numOfFollowing;
+  private boolean followedByCurrentUser;
+  private int mutualFollowers;
+  private String bio;
 }

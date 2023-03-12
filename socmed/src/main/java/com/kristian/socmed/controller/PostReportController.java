@@ -1,7 +1,6 @@
 package com.kristian.socmed.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,16 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.kristian.socmed.exception.MyRuntimeException;
 import com.kristian.socmed.model.entity.ReportStatus;
 import com.kristian.socmed.service.PostReportService;
 import com.kristian.socmed.service.dto.PostReportRequest;
-
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/report")
+@RequestMapping({"/api/report", "/api/report/"})
 @AllArgsConstructor
 @SuppressWarnings("rawtypes")
 public class PostReportController {
