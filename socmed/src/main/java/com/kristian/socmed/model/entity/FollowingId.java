@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SuppressWarnings("serial")
 public class FollowingId implements Serializable {
-  private Long following;
-  private Long followed;
+  private Long followingUser;
+  private Long followedUser;
 }

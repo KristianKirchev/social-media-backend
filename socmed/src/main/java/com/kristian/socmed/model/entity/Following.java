@@ -19,12 +19,12 @@ public class Following implements MyEntity {
   @Id
   @ManyToOne(optional = false)
   @JoinColumn(name = "following_user_id", nullable = false)
-  private User following;
+  private User followingUser;
 
   @Id
   @ManyToOne(optional = false)
   @JoinColumn(name = "followed_user_id", nullable = false)
-  private User followed;
+  private User followedUser;
 
   private Instant date;
 }

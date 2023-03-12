@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,7 +104,7 @@ public class UserService {
     Optional<User> userOpt = userRepository.findByUsername(username);
     User user = userOpt.orElseThrow(() -> new MyRuntimeException("User not found"));
     List<User> followers = user.getFollowing();
-    return followers.stream().map((user1) -> userMapper.toDto(user1)).collect(Collectors.toList());
+    return followers.stream().map(u -> userMapper.toDto(u)).toList();
   }
 
   @Transactional
@@ -114,19 +115,22 @@ public class UserService {
 
   @Transactional
   public List<UserDto> getAllSuggestedUsers() {
-    List<User> notFollowing = userRepository.findByUserIdNotInAndIsEnabled(authService.getCurrentUser()
-        .getFollowing()
-        .stream()
-        .map((user) -> user.getUserId())
-        .collect(Collectors.toList()), true);
-    if (notFollowing.size() == 0) {
+    User currentUser = authService.getCurrentUser();
+    List<Long> followingIds =
+        Optional.ofNullable(currentUser.getFollowing()).orElseGet(List::of).stream().map(User::getUserId).toList();
+    List<User> notFollowing = userRepository.findByUserIdNotInAndIsEnabled(followingIds, true);
+
+    if (CollectionUtils.isEmpty(notFollowing)) {
       List<Long> myId = new ArrayList<>();
-      myId.add(authService.getCurrentUser().getUserId());
+      myId.add(currentUser.getUserId());
       notFollowing = userRepository.findByUserIdNotIn(myId);
     }
-    notFollowing.remove(authService.getCurrentUser());
-    Collections.sort(notFollowing, (user1, user2) -> user2.getMutualFollowers(authService.getCurrentUser())
-        - user1.getMutualFollowers(authService.getCurrentUser()));
+
+    notFollowing.remove(currentUser);
+
+    Collections.sort(notFollowing,
+        (user1, user2) -> user2.getMutualFollowers(currentUser) - user1.getMutualFollowers(currentUser));
+
     return notFollowing.stream().map((user) -> userMapper.toDto(user)).collect(Collectors.toList());
   }
 
@@ -147,6 +151,7 @@ public class UserService {
     userRepository.save(user);
   }
 
+  @Transactional
   public void assignRole(String username, String rolename) {
     Role role = roleRepository.findByName(rolename).orElseThrow(() -> new MyRuntimeException(("Role not found")));
     User user = userRepository.findByUsername(username).orElseThrow(() -> new MyRuntimeException("User not found"));
@@ -161,12 +166,14 @@ public class UserService {
     return users.stream().distinct().map(user -> reportedUserMapper.toDto(user)).collect(Collectors.toList());
   }
 
+  @Transactional
   public void disableUser(String username) {
     User user = userRepository.findByUsername(username).orElseThrow(() -> new MyRuntimeException("User not found"));
     user.setEnabled(false);
     userRepository.save(user);
   }
 
+  @Transactional
   public void enableUser(String username) {
     User user = userRepository.findByUsername(username).orElseThrow(() -> new MyRuntimeException("User not found"));
     user.setEnabled(true);

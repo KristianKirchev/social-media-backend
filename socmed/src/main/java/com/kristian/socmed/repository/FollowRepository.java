@@ -6,5 +6,5 @@ import com.kristian.socmed.model.entity.Following;
 import com.kristian.socmed.model.entity.FollowingId;
 
 public interface FollowRepository extends JpaRepository<Following, FollowingId> {
-  List<Following> findAllByFollowedUserId(Long id);
+  List<Following> findAllByFollowedUserUserId(Long id);
 }

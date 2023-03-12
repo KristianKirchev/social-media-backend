@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +15,6 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 // import org.hibernate.annotations.Type;
 
@@ -33,18 +31,15 @@ public class User implements MyEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
 
-  @NotNull(message = "Enter username!")
   @NotBlank(message = "Enter username!")
   @Column(unique = true)
   private String username;
 
   @Email
-  @NotNull(message = "Enter email!")
   @NotBlank(message = "Enter email!")
   @Column(unique = true)
   private String email;
 
-  @NotNull(message = "Enter password!")
   @NotBlank(message = "Enter password!")
   private String password;
 
@@ -62,7 +57,7 @@ public class User implements MyEntity {
   @ManyToMany(mappedBy = "following", fetch = FetchType.LAZY)
   private List<User> followers;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "userId")},
       inverseJoinColumns = {@JoinColumn(name = "roleId")})
   private Set<Role> roles;
@@ -70,7 +65,7 @@ public class User implements MyEntity {
   public int getMutualFollowers(User currentUser) {
     List<User> listOfMutualFoll = followers.stream()
         .filter(two -> currentUser.getFollowers().stream().anyMatch(one -> one.getUsername().equals(two.getUsername())))
-        .collect(Collectors.toList());
+        .toList();
 
     return listOfMutualFoll.size();
   }

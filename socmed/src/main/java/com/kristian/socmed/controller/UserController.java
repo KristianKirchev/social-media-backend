@@ -19,11 +19,13 @@ import com.kristian.socmed.service.UserService;
 import com.kristian.socmed.service.dto.ReportedUserDto;
 import com.kristian.socmed.service.dto.UserDto;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping({"/api/user", "/api/user/"})
 @AllArgsConstructor
 @SuppressWarnings("rawtypes")
+@Slf4j
 public class UserController {
 
   private UserService userService;
@@ -62,7 +64,7 @@ public class UserController {
   @GetMapping("/profile-info/{username}")
   public ResponseEntity<UserDto> getProfileInfo(@PathVariable String username) {
     UserDto userResponse = userService.getProfileInfo(username);
-    return new ResponseEntity<UserDto>(userResponse, HttpStatus.OK);
+    return new ResponseEntity<>(userResponse, HttpStatus.OK);
   }
 
   @GetMapping("/suggested")
@@ -96,7 +98,11 @@ public class UserController {
 
   @GetMapping("/following/{username}")
   public ResponseEntity<List<UserDto>> getAllFollowingForUser(@PathVariable String username) {
-    return new ResponseEntity<>(userService.getAllFollowingForUser(username), HttpStatus.OK);
+    List<UserDto> allFollowingForUser = userService.getAllFollowingForUser(username);
+    
+    log.debug("allFollowingForUser: {}", allFollowingForUser);
+    
+    return new ResponseEntity<>(allFollowingForUser, HttpStatus.OK);
   }
 
   @PatchMapping

@@ -1,6 +1,9 @@
 package com.kristian.socmed.service;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,12 +71,14 @@ public class AuthService {
   }
 
   private String isAdmin() {
-    User user = getCurrentUser();
-    for (Role role : user.getRoles()) {
-      if (role.getName().equals("ADMIN"))
-        return "yes";
-    }
-    return "no";
+    return Optional.ofNullable(getCurrentUser())
+        .map(User::getRoles)
+        .orElseGet(Set::of)
+        .stream()
+        .filter(r -> "ADMIN".equals(r.getName()))
+        .findFirst()
+        .map(r -> "yes")
+        .orElse("no");
   }
 
   public User getCurrentUser() {
